@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .profile-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .user-info-section, .borrowed-books-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .user-info-section h3, .borrowed-books-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .user-details {
+            display: grid;
+            gap: 15px;
+        }
+        .user-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .user-detail label {
+            font-weight: 600;
+            color: #34495e;
+        }
+        .user-detail span {
+            color: #7f8c8d;
+        }
+        .borrowed-books-list {
+            display: grid;
+            gap: 15px;
+        }
+        .book-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .book-item img {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .book-info {
+            flex: 1;
+        }
+        .book-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .book-author {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .return-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        .return-btn:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Library Management System</h1>
+        <div class="auth-buttons">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="profile.html" class="active">Profile</a></li>
+        </ul>
+    </nav>
+    <div class="profile-container">
+        <div class="user-info-section">
+            <h3>User Information</h3>
+            <div class="user-details">
+                <div class="user-detail">
+                    <label>Full Name</label>
+                    <span id="userFullName"></span>
+                </div>
+                <div class="user-detail">
+                    <label>Email</label>
+                    <span id="userEmail"></span>
+                </div>
+            </div>
+        </div>
+        <div class="borrowed-books-section">
+            <h3>Borrowed Books</h3>
+            <div id="borrowedBooksList" class="borrowed-books-list">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        document.getElementById('userFullName').textContent = currentUser.fullname || '';
+        document.getElementById('userEmail').textContent = currentUser.email || '';
+    }
+});
+</script>
+</body>
+</html>
