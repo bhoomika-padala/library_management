@@ -1,12 +1,12 @@
-# 📚 Library Management System (Frontend Only)
+# Library Management System (Frontend Only)
 
 A fully functional *Library Management System* (LMS) built using HTML, CSS, and JavaScript. This system simulates user login, book borrowing, and admin-level controls — all powered entirely on the frontend using localStorage.
 
 ---
 
-## 🔍 Features
+## Features
 
-### 👤 User Side
+### User Side
 - Login and user profile
 - View available books
 - Borrow and return books
@@ -15,21 +15,21 @@ A fully functional *Library Management System* (LMS) built using HTML, CSS, and 
 - Automatic overdue detection
 - can return throgh return button
 
-### 🛠 Admin Panel
+### Admin Panel
 - View all users and their current borrow details
 - View active borrow history
 - Delete users
 - Return books for users if overdue
 
 
-### 📦 Data Handling
+### Data Handling
 - All data (users, books, borrow info) stored and persisted using localStorage
 - Book data is dummy (cannot read actual PDFs)
 - Admin and user roles are not secured — only simulated via UI
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - HTML5
 - CSS3
@@ -42,7 +42,7 @@ A fully functional *Library Management System* (LMS) built using HTML, CSS, and 
 
 - status and admin-side search button are not functional yet
 - Books cannot be added by admin dynamically (preloaded only)
-- Users can only see *due date, not **borrow date* in profile
+- Users can only see due date, not *borrow date* in profile
 - Borrow history only shows currently borrowed books (no past borrow log)
 - No backend integration (currently frontend-only)
 
