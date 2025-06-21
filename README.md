@@ -38,7 +38,7 @@ A fully functional *Library Management System* (LMS) built using HTML, CSS, and 
 
 ---
 
-## 🚧 Known Limitations / Future Scope
+## Known Limitations / Future Scope
 
 - status and admin-side search button are not functional yet
 - Books cannot be added by admin dynamically (preloaded only)
@@ -48,7 +48,7 @@ A fully functional *Library Management System* (LMS) built using HTML, CSS, and 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1. Clone this repo:
    ```bash
