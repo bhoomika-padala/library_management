@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Library Management System</h1>
+        <div class="auth-buttons">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="admin.html" id="adminLink" style="display: none;">Admin Panel</a></li>
+        </ul>
+    </nav>
+    <div class="login-container">
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <p class="form-footer">
+                Don't have an account? <a href="signup.html">Sign up</a>
+            </p>
+        </form>
+    </div>
+    <script src="script.js"></script>
+    <script> 
+        // Admin credentials
+        const ADMIN_EMAIL = 'admin1426@gmail.com';
+        const ADMIN_PASSWORD = 'adminisme';
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Check for admin login
+            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                // Store admin session
+                localStorage.setItem('currentUser', JSON.stringify({
+                    email: ADMIN_EMAIL,
+                    isAdmin: true,
+                    fullname: 'Administrator'
+                }));
+                
+                // Redirect to admin panel
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // Regular user login
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    ...user,
+                    registrationDate: user.registrationDate || new Date().toISOString()
+                }));
+                window.location.href = 'profile.html';
+            } else {
+                alert('Invalid email or password');
+            }
+        }
+
+        // Update header based on login status
+        function updateHeader() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const authButtons = document.querySelector('.auth-buttons');
+            const adminLink = document.getElementById('adminLink');
+            
+            if (currentUser) {
+                authButtons.innerHTML = `
+                    <span class="user-info">Welcome, ${currentUser.fullname || currentUser.email}</span>
+                    <button onclick="logout()">Logout</button>
+                `;
+                // Show admin link only for admin user
+                if (currentUser.isAdmin && currentUser.email === ADMIN_EMAIL) {
+                    if (adminLink) adminLink.style.display = 'inline-block';
+                }
+            } else {
+                authButtons.innerHTML = `
+                    <button id="loginBtn" onclick="window.location.href='login.html'">Login</button>
+                    <button id="signupBtn" onclick="window.location.href='signup.html'">Sign Up</button>
+                `;
+                if (adminLink) adminLink.style.display = 'none';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            updateHeader();
+            window.location.href = 'index.html';
+        }
+
+        // Initialize
+        updateHeader();
+     </script>
+</body>
+</html> 

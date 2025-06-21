@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Library Management System</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <script src="script.js" defer></script>
+  <script src="admin.js" defer></script>
+  
+</head>
+<body>
+  <div class="header">
+    <h1><i class="fas fa-book"></i> Library Management System</h1>
+    <div class="auth-buttons"></div>
+  </div>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="admin.html" class="active">Admin Panel</a></li>
+    </ul>
+  </nav>
+
+  <div class="admin-container">
+    <nav class="admin-nav">
+      <h1><i class="fas fa-user-shield"></i> Admin Panel</h1>
+      <ul>
+        <li><a href="#dashboard" class="nav-link active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="#view-users" class="nav-link"><i class="fas fa-users"></i> View Users</a></li>
+        <li><a href="#borrow-history" class="nav-link"><i class="fas fa-history"></i> Borrow History</a></li>
+      </ul>
+    </nav>
+
+    <main class="admin-content">
+      <!-- Dashboard -->
+      <section id="dashboard" class="section">
+        <h2><i class="fas fa-chart-line"></i> Dashboard Overview</h2>
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <i class="fas fa-book fa-2x" style="color: #3498db; margin-bottom: 10px;"></i>
+            <h3>Total Books</h3>
+            <p id="totalBooks">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-users fa-2x" style="color: #2ecc71; margin-bottom: 10px;"></i>
+            <h3>Total Users</h3>
+            <p id="totalUsers">0</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-book-reader fa-2x" style="color: #e74c3c; margin-bottom: 10px;"></i>
+            <h3>Borrowed Books</h3>
+            <p id="totalBorrowed">0</p>
+          </div>
+        </div>
+
+      
+      </section>
+
+      <!-- View Users -->
+      <section id="view-users" class="section">
+        <h2><i class="fas fa-users"></i> User Management</h2>
+        <div class="table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Registration Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersList">
+              <!-- Users will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Borrow History -->
+      <section id="borrow-history" class="section">
+        <h2><i class="fas fa-history"></i> Borrow History</h2>
+        
+        <!-- Filter Controls -->
+        <div class="filter-controls" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center;">
+          <div class="form-group" style="margin: 0; flex: 1;">
+            <input type="text" id="borrowSearch" placeholder="Search by user name, book title, or author..." style="width: 100%;">
+          </div>
+          <div class="form-group" style="margin: 0; width: 200px;">
+            <select id="borrowStatus" style="width: 100%;">
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="returned">Returned</option>
+              <option value="overdue">Overdue</option>
+            </select>
+          </div>
+          <button class="submit-btn" id="refreshBorrowHistory">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Book Details</th>
+                <th>Borrow Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="historyList">
+              <!-- Dynamic content -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" style="margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
+          <button class="pagination-btn" id="prevPage">
+            <i class="fas fa-chevron-left"></i> Previous
+          </button>
+          <span id="pageInfo" style="display: flex; align-items: center;">Page 1 of 1</span>
+          <button class="pagination-btn" id="nextPage">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+  <!-- User Details Modal -->
+  <div id="userDetailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeUserModal">&times;</span>
+      <h2><i class="fas fa-user"></i> User Details</h2>
+      <div class="user-details">
+        <p><strong>Name:</strong> <span id="userDetailsName"></span></p>
+        <p><strong>Email:</strong> <span id="userDetailsEmail"></span></p>
+        <p><strong>Registered:</strong> <span id="userDetailsRegistration"></span></p>
+        <p><strong>Books Borrowed:</strong> <span id="userDetailsBorrowed"></span></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

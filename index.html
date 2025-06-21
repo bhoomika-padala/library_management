@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-book"></i> Library Management System</h1>
+        <div class="auth-buttons">
+            <button id="loginBtn" onclick="window.location.href='login.html'">Login</button>
+            <button id="signupBtn" onclick="window.location.href='signup.html'">Sign Up</button>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="admin.html" id="adminLink" style="display: none;">Admin Panel</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-section">
+        <div class="quote-overlay">
+            <p>"A reader lives a thousand lives before he dies."</p>
+            <p class="author">– George R.R. Martin</p>
+        </div>
+    </div>
+
+    <div class="featured-books-container">
+        <h2>Featured Books</h2>
+        <div class="featured-books-grid" id="featuredBooksGrid"></div>
+        <div class="see-all-books">
+            <a href="books.html">See All Books &rarr;</a>
+        </div>
+    </div>
+
+    <!-- Book Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get unique featured books from different categories
+            const featuredBooks = [];
+            const categories = ['science', 'programming', 'mathematics', 'dbms'];
+            
+            categories.forEach(category => {
+                if (window.books && window.books[category] && window.books[category].length > 0) {
+                    // Get a random book from each category
+                    const randomIndex = Math.floor(Math.random() * window.books[category].length);
+                    const book = window.books[category][randomIndex];
+                    if (book) {
+                        featuredBooks.push(book);
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html> 

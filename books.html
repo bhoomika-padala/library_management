@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="books-page">
+    <div class="header">
+        <h1>Library Management System</h1>
+        <div class="auth-buttons">
+            <button id="loginBtn" onclick="window.location.href='login.html'">Login</button>
+            <button id="signupBtn" onclick="window.location.href='signup.html'">Sign Up</button>
+        </div>
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="books.html" class="active">Books</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li id="adminLink" style="display: none;"><a href="admin.html">Admin</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="books-page-container">
+            <h2>All Books</h2>
+            <div class="search-filter-bar">
+                <input type="text" id="searchInput" placeholder="Search books by title or author...">
+                <select id="genreFilter">
+                    <option value="all">All Genres</option>
+                    <option value="science">Science</option>
+                    <option value="programming">Programming</option>
+                    <option value="mathematics">Mathematics</option>
+                    <option value="dbms">DBMS</option>
+                </select>
+            </div>
+            <div class="all-genres" id="allGenres"></div>
+        </div>
+    </main>
+
+    <!-- Book Details Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Render all books by genre
+        function renderAllBooks(filterGenre = 'all', searchTerm = '') {
+            const allGenresDiv = document.getElementById('allGenres');
+            allGenresDiv.innerHTML = '';
+            const lowerSearch = searchTerm.toLowerCase();
+            
+            Object.keys(books).forEach(genre => {
+                if (filterGenre !== 'all' && genre !== filterGenre) return;
+                
+                const genreSection = document.createElement('div');
+                genreSection.className = 'genre';
+                genreSection.innerHTML = `<h3>${genre.charAt(0).toUpperCase() + genre.slice(1)}</h3>`;
+                
+                const booksGrid = document.createElement('div');
+                booksGrid.className = 'books-grid';
+                
+                books[genre].forEach(book => {
+                    if (!searchTerm || 
+                        book.title.toLowerCase().includes(lowerSearch) || 
+                        book.author.toLowerCase().includes(lowerSearch)) {
+                        const card = createBookCard(book);
+                        booksGrid.appendChild(card);
+                    }
+                });
+                
+                if (booksGrid.children.length > 0) {
+                    genreSection.appendChild(booksGrid);
+                    allGenresDiv.appendChild(genreSection);
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAllBooks();
+            
+            document.getElementById('searchInput').addEventListener('input', function(e) {
+                renderAllBooks(document.getElementById('genreFilter').value, e.target.value);
+            });
+            
+            document.getElementById('genreFilter').addEventListener('change', function(e) {
+                renderAllBooks(e.target.value, document.getElementById('searchInput').value);
+            });
+        });
+    </script>
+</body>
+</html> 
